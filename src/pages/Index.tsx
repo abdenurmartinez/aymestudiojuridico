@@ -84,9 +84,9 @@ const Index = () => {
             <img src={logo} alt="Abdenur & Martínez" className="h-10 w-10 object-contain" />
             <span className="text-primary font-bold text-lg tracking-wide hidden sm:inline">ABDENUR & MARTÍNEZ</span>
           </a>
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-10 ml-auto">
             {navLinks.map(l => (
-              <a key={l.href} href={l.href} className="text-sm text-foreground/70 hover:text-primary transition-colors">{l.label}</a>
+              <a key={l.href} href={l.href} className="text-sm text-foreground/70 hover:text-primary transition-colors tracking-wide">{l.label}</a>
             ))}
             <Button asChild size="sm">
               <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">Consultanos</a>

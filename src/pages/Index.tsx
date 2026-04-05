@@ -76,17 +76,7 @@ const Index = () => {
 
   return (
     <div ref={pageRef} className="min-h-screen bg-background">
-      {/* Top bar */}
-      <div className="hidden md:block bg-secondary/60 border-b border-border text-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-10">
-          <div className="flex items-center gap-6 text-foreground/60">
-            <a href={GOOGLE_MAPS} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-primary transition-colors">
-              <MapPin size={14} className="text-primary" /> {ADDRESS}
-            </a>
-            <span className="flex items-center gap-1.5">
-              <Phone size={14} className="text-primary" /> +54 9 3874 20-8027
-            </span>
-          </div>
+      {/* Navbar */}
           <div className="flex items-center gap-4">
             <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="text-foreground/50 hover:text-primary transition-colors"><Instagram size={16} /></a>
             <a href={FACEBOOK} target="_blank" rel="noopener noreferrer" className="text-foreground/50 hover:text-primary transition-colors"><Facebook size={16} /></a>

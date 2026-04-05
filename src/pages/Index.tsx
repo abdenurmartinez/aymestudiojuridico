@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X, Scale, Briefcase, Heart, Hammer, FileText, Handshake, Phone, Instagram, Facebook, MessageCircle, MapPin, GraduationCap, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -47,11 +47,35 @@ const team = [
   },
 ];
 
+function useAnimateOnScroll() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const targets = el.querySelectorAll(".animate-on-scroll");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("animate-visible");
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    targets.forEach((t) => observer.observe(t));
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
+
 const Index = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pageRef = useAnimateOnScroll();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div ref={pageRef} className="min-h-screen bg-background">
       {/* Top bar */}
       <div className="hidden md:block bg-secondary/60 border-b border-border text-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-10">
@@ -107,15 +131,15 @@ const Index = () => {
         <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1080} />
         <div className="absolute inset-0 bg-background/70" />
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <img src={logo} alt="Abdenur & Martínez Abogados" className="h-28 w-28 mx-auto mb-8 object-contain" />
-          <p className="text-primary uppercase tracking-[0.3em] text-sm mb-4 font-medium">Estudio Jurídico</p>
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+          <img src={logo} alt="Abdenur & Martínez Abogados" className="h-28 w-28 mx-auto mb-8 object-contain animate-on-scroll" />
+          <p className="text-primary uppercase tracking-[0.3em] text-sm mb-4 font-medium animate-on-scroll delay-1">Estudio Jurídico</p>
+          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight animate-on-scroll delay-2">
             Defensa estratégica. <span className="text-primary">Litigación eficaz.</span> Soluciones concretas.
           </h1>
-          <p className="text-foreground/70 text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+          <p className="text-foreground/70 text-lg md:text-xl mb-10 max-w-2xl mx-auto animate-on-scroll delay-2">
             Asesoramiento jurídico integral en derecho penal, civil, familiar, laboral y administrativo.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-on-scroll delay-3">
             <Button asChild size="lg" className="text-base">
               <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="mr-2" size={20} /> Consultá tu caso
@@ -131,19 +155,19 @@ const Index = () => {
       {/* About */}
       <section id="estudio" className="py-24 px-4">
         <div className="max-w-6xl mx-auto">
-          <p className="text-primary uppercase tracking-[0.2em] text-sm text-center mb-3">Sobre Nosotros</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-6">El Estudio</h2>
-          <p className="text-foreground/70 text-center max-w-3xl mx-auto text-lg mb-16">
+          <p className="text-primary uppercase tracking-[0.2em] text-sm text-center mb-3 animate-on-scroll">Sobre Nosotros</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-6 animate-on-scroll">El Estudio</h2>
+          <p className="text-foreground/70 text-center max-w-3xl mx-auto text-lg mb-16 animate-on-scroll">
             Abdenur & Martínez es una firma jurídica enfocada en la litigación estratégica y resolución integral de conflictos. Trabajamos con compromiso, rigor técnico y un enfoque personalizado en cada caso.
           </p>
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-card rounded-lg p-8 border border-border">
+            <div className="bg-card rounded-lg p-8 border border-border animate-on-scroll">
               <h3 className="text-xl font-semibold text-primary mb-4">Misión</h3>
               <p className="text-foreground/70 leading-relaxed">
                 Brindar asesoramiento jurídico integral de excelencia, orientado a la defensa efectiva de los derechos de nuestros clientes, mediante estrategias sólidas, compromiso profesional y acompañamiento constante en cada etapa del proceso.
               </p>
             </div>
-            <div className="bg-card rounded-lg p-8 border border-border">
+            <div className="bg-card rounded-lg p-8 border border-border animate-on-scroll delay-1">
               <h3 className="text-xl font-semibold text-primary mb-4">Visión</h3>
               <p className="text-foreground/70 leading-relaxed">
                 Consolidarnos como un estudio jurídico de referencia en la región, reconocido por su profesionalismo, innovación, eficacia en la resolución de conflictos y compromiso con la calidad del servicio.
@@ -158,11 +182,11 @@ const Index = () => {
         <img src={servicesBg} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={1080} />
         <div className="absolute inset-0 bg-background/85" />
         <div className="max-w-6xl mx-auto relative z-10">
-          <p className="text-primary uppercase tracking-[0.2em] text-sm text-center mb-3">Áreas de Práctica</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-16">Servicios</h2>
+          <p className="text-primary uppercase tracking-[0.2em] text-sm text-center mb-3 animate-on-scroll">Áreas de Práctica</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-16 animate-on-scroll">Servicios</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map(s => (
-              <div key={s.title} className="bg-card/80 backdrop-blur-sm rounded-lg p-8 border border-border hover:border-primary/40 transition-all group hover:bg-card/95">
+            {services.map((s, i) => (
+              <div key={s.title} className={`bg-card/80 backdrop-blur-sm rounded-lg p-8 border border-border hover:border-primary/40 transition-all group hover:bg-card/95 animate-on-scroll ${i < 3 ? `delay-${i + 1}` : ''}`}>
                 <div className="w-14 h-14 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
                   <s.icon className="text-primary" size={28} />
                 </div>
@@ -177,25 +201,17 @@ const Index = () => {
       {/* Team */}
       <section id="equipo" className="py-24 px-4">
         <div className="max-w-5xl mx-auto">
-          <p className="text-primary uppercase tracking-[0.2em] text-sm text-center mb-3">Profesionales</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-16">Nuestro Equipo</h2>
+          <p className="text-primary uppercase tracking-[0.2em] text-sm text-center mb-3 animate-on-scroll">Profesionales</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-16 animate-on-scroll">Nuestro Equipo</h2>
           <div className="grid md:grid-cols-2 gap-12">
-            {team.map(member => (
-              <div key={member.name} className="flex flex-col items-center">
-                {/* Card with photo + info */}
+            {team.map((member, i) => (
+              <div key={member.name} className={`flex flex-col items-center animate-on-scroll ${i === 1 ? 'delay-1' : ''}`}>
                 <div className="bg-card rounded-2xl border border-border p-8 text-center w-full">
-                  {/* Circular photo */}
                   <div className="w-36 h-36 rounded-full mx-auto mb-6 overflow-hidden ring-4 ring-primary/20 ring-offset-4 ring-offset-card">
-                    <img
-                      src={member.photo}
-                      alt={member.name}
-                      className="w-full h-full object-cover object-top"
-                    />
+                    <img src={member.photo} alt={member.name} className="w-full h-full object-cover object-top" />
                   </div>
                   <h3 className="text-xl font-bold text-foreground mb-1">{member.name}</h3>
                   <p className="text-primary font-medium text-sm mb-6">{member.role}</p>
-
-                  {/* Specialties */}
                   <div className="space-y-2.5 mb-6">
                     <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-foreground/40 font-semibold">
                       <GraduationCap size={14} className="text-primary" />
@@ -210,8 +226,6 @@ const Index = () => {
                       ))}
                     </div>
                   </div>
-
-                  {/* Bio */}
                   <p className="text-foreground/60 text-sm leading-relaxed italic">
                     &ldquo;{member.bio}&rdquo;
                   </p>
@@ -227,24 +241,21 @@ const Index = () => {
         <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={1080} />
         <div className="absolute inset-0 bg-background/80" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <p className="text-primary uppercase tracking-[0.2em] text-sm mb-3">Comunicate</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Contacto</h2>
-          <p className="text-foreground/70 text-lg mb-6 max-w-2xl mx-auto">
+          <p className="text-primary uppercase tracking-[0.2em] text-sm mb-3 animate-on-scroll">Comunicate</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 animate-on-scroll">Contacto</h2>
+          <p className="text-foreground/70 text-lg mb-6 max-w-2xl mx-auto animate-on-scroll">
             Actuar a tiempo puede marcar la diferencia. Consultanos y evaluamos tu caso con atención personalizada.
           </p>
-
-          {/* Location */}
           <a
             href={GOOGLE_MAPS}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-10 group"
+            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-10 group animate-on-scroll"
           >
             <MapPin size={18} className="group-hover:scale-110 transition-transform" />
             <span className="text-lg font-medium underline underline-offset-4 decoration-primary/40">{ADDRESS}</span>
           </a>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-on-scroll delay-1">
             <Button asChild size="lg" className="text-base">
               <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">
                 <Phone className="mr-2" size={20} /> WhatsApp

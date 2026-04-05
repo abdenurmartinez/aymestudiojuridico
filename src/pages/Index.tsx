@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Menu, X, Scale, Briefcase, Users, Heart, Hammer, FileText, Handshake, Phone, Instagram, Facebook, MessageCircle, MapPin, Clock, Mail } from "lucide-react";
+import { Menu, X, Scale, Briefcase, Heart, Hammer, FileText, Handshake, Phone, Instagram, Facebook, MessageCircle, MapPin, GraduationCap, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
+import servicesBg from "@/assets/services-bg.jpg";
 import logo from "@/assets/logo.png";
 import nahimPhoto from "@/assets/nahim.png";
 import alejandraPhoto from "@/assets/alejandra.png";
@@ -10,6 +11,7 @@ const WHATSAPP = "https://wa.me/5493874208027";
 const INSTAGRAM = "https://www.instagram.com/estudioabdenur.martinez?igsh=MTUzaWUzZWl2MHRmZA==";
 const FACEBOOK = "https://www.facebook.com/share/1CGnHCmo7q/";
 const ADDRESS = "General Paz 261, Salta Capital";
+const GOOGLE_MAPS = "https://www.google.com/maps/search/General+Paz+261+Salta+Capital+Argentina";
 
 const navLinks = [
   { label: "Inicio", href: "#inicio" },
@@ -33,13 +35,15 @@ const team = [
     name: "Dr. Abdenur Nahim",
     role: "Socio Fundador",
     photo: nahimPhoto,
-    bio: "Diplomado en Derecho Procesal Penal (provincial y federal) y en Derecho Procesal Civil y Comercial. Mediador. Con una sólida formación académica y amplia experiencia en litigación, lidera la estrategia legal del estudio con enfoque en resultados concretos y defensa comprometida.",
+    specialties: ["Derecho Procesal Penal (provincial y federal)", "Derecho Procesal Civil y Comercial", "Mediador certificado"],
+    bio: "Con una sólida formación académica y amplia experiencia en litigación, lidera la estrategia legal del estudio con enfoque en resultados concretos y defensa comprometida.",
   },
   {
     name: "Dra. Alejandra Martínez Acosta",
     role: "Socia",
     photo: alejandraPhoto,
-    bio: "Diplomada en Derecho Procesal Civil y Comercial, con amplia experiencia en litigación. Su dedicación y enfoque meticuloso en cada caso garantizan una representación legal de excelencia, priorizando siempre los intereses de sus clientes.",
+    specialties: ["Derecho Procesal Civil y Comercial", "Litigación estratégica"],
+    bio: "Su dedicación y enfoque meticuloso en cada caso garantizan una representación legal de excelencia, priorizando siempre los intereses de sus clientes.",
   },
 ];
 
@@ -52,9 +56,9 @@ const Index = () => {
       <div className="hidden md:block bg-secondary/60 border-b border-border text-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-10">
           <div className="flex items-center gap-6 text-foreground/60">
-            <span className="flex items-center gap-1.5">
+            <a href={GOOGLE_MAPS} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-primary transition-colors">
               <MapPin size={14} className="text-primary" /> {ADDRESS}
-            </span>
+            </a>
             <span className="flex items-center gap-1.5">
               <Phone size={14} className="text-primary" /> +54 9 3874 20-8027
             </span>
@@ -150,14 +154,18 @@ const Index = () => {
       </section>
 
       {/* Services */}
-      <section id="servicios" className="py-24 px-4 bg-secondary/30">
-        <div className="max-w-6xl mx-auto">
+      <section id="servicios" className="relative py-24 px-4">
+        <img src={servicesBg} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={1080} />
+        <div className="absolute inset-0 bg-background/85" />
+        <div className="max-w-6xl mx-auto relative z-10">
           <p className="text-primary uppercase tracking-[0.2em] text-sm text-center mb-3">Áreas de Práctica</p>
           <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-16">Servicios</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map(s => (
-              <div key={s.title} className="bg-card rounded-lg p-8 border border-border hover:border-primary/40 transition-colors group">
-                <s.icon className="text-primary mb-4 group-hover:scale-110 transition-transform" size={36} />
+              <div key={s.title} className="bg-card/80 backdrop-blur-sm rounded-lg p-8 border border-border hover:border-primary/40 transition-all group hover:bg-card/95">
+                <div className="w-14 h-14 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
+                  <s.icon className="text-primary" size={28} />
+                </div>
                 <h3 className="text-lg font-semibold text-foreground mb-3">{s.title}</h3>
                 <p className="text-foreground/60 text-sm leading-relaxed">{s.desc}</p>
               </div>
@@ -171,23 +179,42 @@ const Index = () => {
         <div className="max-w-5xl mx-auto">
           <p className="text-primary uppercase tracking-[0.2em] text-sm text-center mb-3">Profesionales</p>
           <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-16">Nuestro Equipo</h2>
-          <div className="grid md:grid-cols-2 gap-10">
+          <div className="grid md:grid-cols-2 gap-12">
             {team.map(member => (
-              <div key={member.name} className="bg-card rounded-xl border border-border overflow-hidden group hover:border-primary/30 transition-colors">
-                <div className="relative h-72 overflow-hidden">
-                  <img
-                    src={member.photo}
-                    alt={member.name}
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-                </div>
-                <div className="p-8 -mt-12 relative">
-                  <span className="inline-block bg-primary text-primary-foreground text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-4">
-                    {member.role}
-                  </span>
-                  <h3 className="text-xl font-bold text-foreground mb-3">{member.name}</h3>
-                  <p className="text-foreground/60 text-sm leading-relaxed">{member.bio}</p>
+              <div key={member.name} className="flex flex-col items-center">
+                {/* Card with photo + info */}
+                <div className="bg-card rounded-2xl border border-border p-8 text-center w-full">
+                  {/* Circular photo */}
+                  <div className="w-36 h-36 rounded-full mx-auto mb-6 overflow-hidden ring-4 ring-primary/20 ring-offset-4 ring-offset-card">
+                    <img
+                      src={member.photo}
+                      alt={member.name}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-1">{member.name}</h3>
+                  <p className="text-primary font-medium text-sm mb-6">{member.role}</p>
+
+                  {/* Specialties */}
+                  <div className="space-y-2.5 mb-6">
+                    <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-foreground/40 font-semibold">
+                      <GraduationCap size={14} className="text-primary" />
+                      <span>Formación</span>
+                    </div>
+                    <div className="bg-secondary/50 rounded-lg p-4 space-y-2">
+                      {member.specialties.map(s => (
+                        <div key={s} className="flex items-start gap-2 text-sm text-foreground/70">
+                          <Award size={14} className="text-primary mt-0.5 shrink-0" />
+                          <span>{s}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Bio */}
+                  <p className="text-foreground/60 text-sm leading-relaxed italic">
+                    &ldquo;{member.bio}&rdquo;
+                  </p>
                 </div>
               </div>
             ))}
@@ -196,13 +223,27 @@ const Index = () => {
       </section>
 
       {/* Contact */}
-      <section id="contacto" className="py-24 px-4 bg-secondary/30">
-        <div className="max-w-4xl mx-auto text-center">
+      <section id="contacto" className="relative py-24 px-4">
+        <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={1080} />
+        <div className="absolute inset-0 bg-background/80" />
+        <div className="max-w-4xl mx-auto text-center relative z-10">
           <p className="text-primary uppercase tracking-[0.2em] text-sm mb-3">Comunicate</p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Contacto</h2>
-          <p className="text-foreground/70 text-lg mb-10 max-w-2xl mx-auto">
+          <p className="text-foreground/70 text-lg mb-6 max-w-2xl mx-auto">
             Actuar a tiempo puede marcar la diferencia. Consultanos y evaluamos tu caso con atención personalizada.
           </p>
+
+          {/* Location */}
+          <a
+            href={GOOGLE_MAPS}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-10 group"
+          >
+            <MapPin size={18} className="group-hover:scale-110 transition-transform" />
+            <span className="text-lg font-medium underline underline-offset-4 decoration-primary/40">{ADDRESS}</span>
+          </a>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button asChild size="lg" className="text-base">
               <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">
@@ -226,9 +267,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="bg-card border-t border-border">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Main footer */}
           <div className="py-12 grid md:grid-cols-3 gap-10">
-            {/* Brand */}
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <img src={logo} alt="Abdenur & Martínez" className="h-10 w-10 object-contain" loading="lazy" />
@@ -238,8 +277,6 @@ const Index = () => {
                 Estudio jurídico enfocado en la litigación estratégica y resolución integral de conflictos legales.
               </p>
             </div>
-
-            {/* Links */}
             <div>
               <h4 className="text-foreground font-semibold mb-4 text-sm uppercase tracking-wider">Navegación</h4>
               <ul className="space-y-2">
@@ -250,14 +287,14 @@ const Index = () => {
                 ))}
               </ul>
             </div>
-
-            {/* Contact info */}
             <div>
               <h4 className="text-foreground font-semibold mb-4 text-sm uppercase tracking-wider">Contacto</h4>
               <ul className="space-y-3 text-sm text-foreground/50">
-                <li className="flex items-start gap-2">
-                  <MapPin size={16} className="text-primary mt-0.5 shrink-0" />
-                  <span>{ADDRESS}</span>
+                <li>
+                  <a href={GOOGLE_MAPS} target="_blank" rel="noopener noreferrer" className="flex items-start gap-2 hover:text-primary transition-colors">
+                    <MapPin size={16} className="text-primary mt-0.5 shrink-0" />
+                    <span>{ADDRESS}</span>
+                  </a>
                 </li>
                 <li className="flex items-center gap-2">
                   <Phone size={16} className="text-primary shrink-0" />
@@ -271,8 +308,6 @@ const Index = () => {
               </ul>
             </div>
           </div>
-
-          {/* Bottom bar */}
           <div className="border-t border-border py-6 flex flex-col sm:flex-row items-center justify-between gap-2">
             <span className="text-foreground/40 text-xs">© {new Date().getFullYear()} Abdenur & Martínez Abogados. Todos los derechos reservados.</span>
             <span className="text-foreground/30 text-xs">Salta, Argentina</span>

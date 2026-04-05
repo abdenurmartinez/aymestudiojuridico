@@ -76,14 +76,6 @@ const Index = () => {
 
   return (
     <div ref={pageRef} className="min-h-screen bg-background">
-      {/* Navbar */}
-          <div className="flex items-center gap-4">
-            <a href={INSTAGRAM} target="_blank" rel="noopener noreferrer" className="text-foreground/50 hover:text-primary transition-colors"><Instagram size={16} /></a>
-            <a href={FACEBOOK} target="_blank" rel="noopener noreferrer" className="text-foreground/50 hover:text-primary transition-colors"><Facebook size={16} /></a>
-            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="text-foreground/50 hover:text-primary transition-colors"><MessageCircle size={16} /></a>
-          </div>
-        </div>
-      </div>
 
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">

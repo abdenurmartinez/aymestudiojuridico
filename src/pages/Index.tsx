@@ -79,8 +79,8 @@ const Index = () => {
 
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-          <a href="#inicio" className="flex items-center gap-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center h-16">
+          <a href="#inicio" className="flex items-center gap-3 mr-auto">
             <img src={logo} alt="Abdenur & Martínez" className="h-10 w-10 object-contain" />
             <span className="text-primary font-bold text-lg tracking-wide hidden sm:inline">ABDENUR & MARTÍNEZ</span>
           </a>
